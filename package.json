@@ -1,0 +1,21 @@
+{
+  "name": "web-historian",
+  "version": "1.0.1",
+  "main": "web/basic-server.js",
+  "author": "Hack Reactor",
+  "license": "Copyright 2014, Hack Reactor. All rights reserved.",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^1.9.0",
+    "cron": "^1.0.3",
+    "mocha": "^1.21.4",
+    "q": "^1.0.0",
+    "request": "^2.34.0",
+    "supertest": "^0.15.0",
+    "underscore": "^1.6.0"
+  },
+  "scripts": {
+    "test": "mocha test",
+    "start": "node ./web/basic-server.js"
+  }
+}
