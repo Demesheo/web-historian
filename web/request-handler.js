@@ -14,7 +14,6 @@ exports.handleRequest = function (req, res) {
     if(pathName === '/'){
       pathName = '/index.html';
     }
-    console.log('archive search path :', archive.paths.archivedSites + pathName);
     if(pathName !== '/index.html'){
       httpHelp.serveAssets(res, archive.paths.archivedSites + pathName);
     } else {
@@ -34,10 +33,6 @@ exports.handleRequest = function (req, res) {
       data = JSON.parse(data);
 
       fs.appendFile(archive.paths.list, data['url'] + '\n', function (err) {
-
-        fs.readFile(archive.paths.list, function (err, data){
-          console.log('data in file :', data.toString('utf-8'));
-        })
         if (err) throw err;
         
         console.log('The website name was appended to file!');
