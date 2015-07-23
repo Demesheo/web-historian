@@ -41,7 +41,6 @@ exports.isUrlInList = function(url, callback){
 
   exports.readListOfUrls(function(urls){
     if(urls.indexOf(url)!== -1){
-      console.log('list includes :', url);
       callback(true);
     } else {callback(false)};
   });
@@ -72,8 +71,6 @@ exports.downloadUrls = function(urlArray){
     httpRequest.get(options, fileDestination, function (error, result) {
       if (error) {
         console.error(error);
-      } else {
-        console.log('File downloaded at: ' + result.file);
       }
     })
   };
