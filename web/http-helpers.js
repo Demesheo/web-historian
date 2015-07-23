@@ -26,7 +26,7 @@ exports.serveAssets = function(res, asset, callback) {
 };
 // As you progress, keep thinking about what helper functions you can put here!
 
-/*
+/* NOTE: THIS IS HERE TO REFERENCE FOR WHEN WE WANT TO SERVE CSS AND STUFF TOO.
 var filePath = req.url;
 if (filePath == '/')
   filePath = '/index.html';

@@ -35,37 +35,9 @@ exports.handleRequest = function (req, res) {
       fs.appendFile(archive.paths.list, data['url'] + '\n', function (err) {
         if (err) throw err;
         
-        console.log('The website name was appended to file!');
-        res.end(); // TODO: This is hella broken.
+        res.end(); // This hella works
       })
     });
 
   };
-
-
-
-
-
-
-};
-//
-
-
-
-
-
-  // fs.readFile(archive.paths.home, function (err,data) {
-  //   if (err) {
-  //     res.writeHead(404);
-  //     res.end(JSON.stringify(err));
-  //     return;
-  //   }
-  //   res.writeHead(200);
-  //   res.end(data);
-  // });
-
-
-var end = function(data, statusCode){
-  res.writeHead(statusCode);
-  res.end(data);
 };

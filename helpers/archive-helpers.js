@@ -22,61 +22,59 @@ var httpRequest = require('http-request');
 exports.initialize = function(pathsObj){
   _.each(pathsObj, function(path, type) {
     exports.paths[type] = path;
-});
+  });
 };
 
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback){
-    var readData = [];
-    fs.readFile(exports.paths.list, function (err, data){
-        readData = data.toString('utf-8').split('\n');
-        if(err){throw err};
-        callback(readData);
-    });
+  var readData = [];
+  fs.readFile(exports.paths.list, function (err, data){
+    readData = data.toString('utf-8').split('\n');
+    if(err){throw err};
+    callback(readData);
+  });
 };
 
 exports.isUrlInList = function(url, callback){
 
-    exports.readListOfUrls(function(urls){
-        if(urls.indexOf(url)!== -1){
-            console.log('list includes :', url);
-            callback(true);
-        } else {callback(false)};
-    });
-
-
+  exports.readListOfUrls(function(urls){
+    if(urls.indexOf(url)!== -1){
+      console.log('list includes :', url);
+      callback(true);
+    } else {callback(false)};
+  });
 };
 
 exports.addUrlToList = function(url, callback){
-    fs.appendFile(exports.paths.list, url.toString() + '\n', function (err) {
-        if (err) throw err;
-        callback();
-    })
-
+  fs.appendFile(exports.paths.list, url.toString() + '\n', function (err) {
+    if (err) throw err;
+    callback();
+  })
 };
 
 exports.isUrlArchived = function(url, callback){
-    url = exports.paths.archivedSites + url;
-    fs.readFile(url, function (err,data) {
-        if (err) {
-          callback(false)
-      } else {
-        callback(true)
+  url = exports.paths.archivedSites + url;
+  fs.readFile(url, function (err,data) {
+    if (err) {
+      callback(false)
+    } else {
+      callback(true)
     }
-});
+  });
 };
 
 exports.downloadUrls = function(urlArray){
-    for(var i = 0; i < urlArray.length; i++){
-        var options = {url: urlArray[i] };
-        var fileDestination = exports.paths.archivedSites + '/' +urlArray[i];
-        httpRequest.get(options, fileDestination, function (error, result) {
-            if (error) {
-                console.error(error);
-            } else {
-                console.log('File downloaded at: ' + result.file);
-            }
-        })};
-    };
+  for(var i = 0; i < urlArray.length; i++){
+    var options = {url: urlArray[i] };
+    var fileDestination = exports.paths.archivedSites + '/' +urlArray[i];
+    httpRequest.get(options, fileDestination, function (error, result) {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('File downloaded at: ' + result.file);
+      }
+    })
+  };
+};
