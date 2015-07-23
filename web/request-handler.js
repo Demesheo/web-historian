@@ -24,22 +24,25 @@ exports.handleRequest = function (req, res) {
 
   if(req.method === 'POST'){
     var data = '';
+    res.writeHead(302);
     req.on('data', function(chunk){
-      res.writeHead(302);
       data += chunk;
     });
 
     req.on('end', function(){
-    
+
       data = JSON.parse(data);
-      console.log(data);
-      console.log('filepath: ', archive.paths.list);
 
-      fs.appendFile(archive.paths.list, JSON.stringify(data['url']), function (err) {
+      fs.appendFile(archive.paths.list, data['url'] + '\n', function (err) {
 
+        fs.readFile(archive.paths.list, function (err, data){
+          console.log('data in file :', data.toString('utf-8'));
+        })
         if (err) throw err;
-        console.log('The website name was appended to file!');})
+        
+        console.log('The website name was appended to file!');
         res.end(); // TODO: This is hella broken.
+      })
     });
 
   };
