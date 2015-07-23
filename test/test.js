@@ -26,7 +26,7 @@ describe("server", function() {
       it("should return the content of a website from the archive", function (done) {
         var fixtureName = "www.google.com";
         var fixturePath = archive.paths.archivedSites + "/" + fixtureName;
-
+        console.log(fixturePath);
         // Create or clear the file.
         var fd = fs.openSync(fixturePath, "w");
         fs.writeSync(fd, "google");

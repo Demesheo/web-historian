@@ -1,3 +1,5 @@
+"use strict";
+
 var path = require('path');
 var archive = require('../helpers/archive-helpers');
 var httpRequest = require('http-request');
@@ -13,15 +15,15 @@ exports.handleRequest = function (req, res) {
       pathName = '/index.html';
     }
     console.log('archive search path :', archive.paths.archivedSites + pathName);
-    if(fs.exists(archive.paths.archivedSites + pathName)){
-      console.log("inside fs exists :", pathName);
-
-      httpHelp.serveAssets(res, archive.paths.archivedSites + pathName);
-    }
-    httpHelp.serveAssets(res, archive.paths.home + pathName);
-  } 
-}
-
+    // req.on('finish', function(){ 
+      if(pathName !== '/index.html'){
+        httpHelp.serveAssets(res, archive.paths.archivedSites + pathName);
+      } else {
+        httpHelp.serveAssets(res, archive.paths.home + pathName);
+      }
+    // }); 
+  };
+};
 //
 
 
@@ -40,6 +42,6 @@ exports.handleRequest = function (req, res) {
 
 
 var end = function(data, statusCode){
-    res.writeHead(statusCode);
-    res.end(data);
-}
+  res.writeHead(statusCode);
+  res.end(data);
+};
