@@ -1,21 +1,45 @@
 var path = require('path');
 var archive = require('../helpers/archive-helpers');
-// var home = require('./public/index');
 var httpRequest = require('http-request');
 var fs = require('fs');
-// require more modules/folders here
+var httpHelp = require('./http-helpers');
+var url = require('url');
+
 
 exports.handleRequest = function (req, res) {
-    // console.log(home)
-
-  fs.readFile(archive.paths.home, function (err,data) {
-    if (err) {
-      res.writeHead(404);
-      res.end(JSON.stringify(err));
-      return;
+  if(req.method === 'GET'){
+    var pathName = req.url;
+    if(pathName === '/'){
+      pathName = '/index.html';
     }
-    res.writeHead(200);
-    res.end(data);
-  });
+    console.log('archive search path :', archive.paths.archivedSites + pathName);
+    if(fs.exists(archive.paths.archivedSites + pathName)){
+      console.log("inside fs exists :", pathName);
 
-};
+      httpHelp.serveAssets(res, archive.paths.archivedSites + pathName);
+    }
+    httpHelp.serveAssets(res, archive.paths.home + pathName);
+  } 
+}
+
+//
+
+
+
+
+
+  // fs.readFile(archive.paths.home, function (err,data) {
+  //   if (err) {
+  //     res.writeHead(404);
+  //     res.end(JSON.stringify(err));
+  //     return;
+  //   }
+  //   res.writeHead(200);
+  //   res.end(data);
+  // });
+
+
+var end = function(data, statusCode){
+    res.writeHead(statusCode);
+    res.end(data);
+}
