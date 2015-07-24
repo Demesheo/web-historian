@@ -23,18 +23,16 @@ exports.handleRequest = function (req, res) {
 
   if(req.method === 'POST'){
     var data = '';
-    res.writeHead(302);
     req.on('data', function(chunk){
       data += chunk;
     });
-
     req.on('end', function(){
-
+      console.log('data end');
       data = JSON.parse(data);
-
       fs.appendFile(archive.paths.list, data['url'] + '\n', function (err) {
         if (err) throw err;
         
+        res.writeHead(302, httpHelp.headers);
         res.end(); // This hella works
       })
     });
