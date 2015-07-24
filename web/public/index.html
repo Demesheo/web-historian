@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
   <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
-<script type="text/javascript">
-$(document).ready(function(){
+  <script type="text/javascript">
+    $(document).ready(function(){
 
-    $('#submitBtn').on('click', function(e) {
+      $('#submitBtn').on('click', function(e) {
         e.preventDefault();
         var webSite = $('#inputData').val();
-      
+
         console.log(webSite);
         $.ajax({
-            type: 'POST',
-            url: 'http://127.0.0.1:8080/',
-            data: JSON.stringify({url: webSite}),
+          type: 'POST',
+          url: 'http://127.0.0.1:8080',
+          data: JSON.stringify({url: webSite}),
 
-            success: function (data) {
-                console.log('Success: ')
-            },
-            error: function (status, error) {
-                console.log('error: ',error, status)
-                console.log('Error connecting to the server.');
-            },
+          success: function (data) {
+            console.log('Success: ')
+          },
+          error: function (status, error) {
+            if(status.status === 302){
+              console.log('302 success');
+            } else{              
+              console.log('error: ',error, status)
+              console.log('Error connecting to the server.');
+            }
+          },
         });
-    });
-})
-
-</script>
+      });
+    })
+  </script>
 </head>
 <body>
   Enter a URL here:

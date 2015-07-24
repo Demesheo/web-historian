@@ -27,13 +27,13 @@ exports.handleRequest = function (req, res) {
       data += chunk;
     });
     req.on('end', function(){
-      console.log('data end');
+      console.log(data)
       data = JSON.parse(data);
       fs.appendFile(archive.paths.list, data['url'] + '\n', function (err) {
         if (err) throw err;
         
         res.writeHead(302, httpHelp.headers);
-        res.end(); // This hella works
+        res.end(); // This hella work   
       })
     });
 
